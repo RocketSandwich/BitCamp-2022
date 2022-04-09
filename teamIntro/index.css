@@ -3,7 +3,7 @@ body {
     padding: 15px;
     font-size: 16px;
     line-height: 1.5;
-    background-image: url('bg.png');
+    /* background-color: #2588cf; */
     background-position: center center;
     background-size: cover; /* or background-size: contain */
 
@@ -13,18 +13,13 @@ body {
     margin-left: auto;
     margin-right: auto;
 }
-#resume{
+#thanks{
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     display: none;
 }
-#blog{
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    display: none;
-}
+
 h1 {
     margin: 0px;
     font-size: 25px;
@@ -48,10 +43,10 @@ img {
   object-fit: contain;
 }
 .tab button {
-  color: black;
+  color: #2588cf;
   font-style: bold;
   font-size: 25px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: inherit;
   border: none;
   outline: none;

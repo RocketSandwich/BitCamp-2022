@@ -49,8 +49,8 @@ priceLabel = st.text("")
 calculatePriceBtn = st.button("Calculate Price :D")
 calcPrice(BEDRM=numOfBedrooms, ROOMS=numOfRooms, BATHRM=numOfBathrooms, KITCHENS=numOfKitchen, AC=AC, CNDTN=CONDITDic[condition])
 
-#selection df 1
-# selectDF1 = df.loc[(df['bathrm'] == numOfBathrooms) &(df['rooms'] == numOfRooms) ]
-# st.dataframe(selectDF1)
-# df1 = pd.DataFrame(df, columns= ['latitude','longitude'])
-# st.map(df1)
+df1 = df.loc[(df['BATHRM'] == bathrm) & (df['ROOMS'] == rm)& (df['BEDRM']==bedrm)& (df['KITCHENS']==ktch)& (df['AC']==AC)& (df['CNDTN']==condition)]
+if df1.empty:
+    st.write("We're sorry, we don't have any houses like your preferences")
+else:
+  st.dataframe(df1)

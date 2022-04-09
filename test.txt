@@ -1,0 +1,4 @@
+This is supposed to be test connecting to remote repo
+	- create development branch
+	- observe new txt file
+	- caca poopoo

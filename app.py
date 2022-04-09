@@ -10,7 +10,7 @@ st.title("Real Estate Price Prediction based on selection")
 df = pd.read_csv('DC_propertyOpenData.csv',encoding='latin-1')
 df.columns= df.columns.str.lower()
 test = df.astype(str)
-st.dataframe(test)
+# st.dataframe(test)
 
 #Number of bathrooms
 bathrmL = df['bathrm'].tolist()
@@ -42,12 +42,15 @@ numOfKitchen = st.slider("How many kitchens?", minKit, maxKit)
 AC = st.checkbox("Have AC?")
 condition = st.selectbox('How would you like the condition of the house to be?',('Very Good','Good', 'Average'))
 
-selection_date = {
+selection_data = {
     'bathrm': [numOfBathrooms],
     'rooms': [numOfRooms],
     'bedrm': [numOfBedrooms],
     'kitchens': [numOfKitchen],
     'ac': [AC],
-    'cndtn': [condition],
-
+    'cndtn': [condition]
 }
+# show list of houses based on selection
+selectionDF = pd.DataFrame(selection_data)
+selectionDF1 = selectionDF.astype(str)
+st.dataframe(selectionDF1)

@@ -42,15 +42,5 @@ numOfKitchen = st.slider("How many kitchens?", minKit, maxKit)
 AC = st.checkbox("Have AC?")
 condition = st.selectbox('How would you like the condition of the house to be?',('Very Good','Good', 'Average'))
 
-selection_data = {
-    'bathrm': [numOfBathrooms],
-    'rooms': [numOfRooms],
-    'bedrm': [numOfBedrooms],
-    'kitchens': [numOfKitchen],
-    'ac': [AC],
-    'cndtn': [condition]
-}
-# show list of houses based on selection
-selectionDF = pd.DataFrame(selection_data)
-selectionDF1 = selectionDF.astype(str)
-st.dataframe(selectionDF1)
+#selection df 1
+selectDF1 = df.loc[(df['bathrm'] == numOfBathrooms)]

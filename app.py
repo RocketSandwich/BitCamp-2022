@@ -57,7 +57,7 @@ EYB=1963.649229092338, STORIES=2.079705255815569, QUALIFIED=0.48203750293090664,
 
 @st.cache(persist=True)
 def read_csv_and_lowerCase_columnNames(req_cols = ["BATHRM", "ROOMS", "BEDRM", "KITCHENS", "AC", "CNDTN"]):
-    df = pd.read_csv('DC_propertyOpenData.csv', encoding='latin-1', usecols=req_cols, low_memory=False)
+    df = pd.read_csv('DC_propertyOpenData.csv', encoding='latin-1', usecols=req_cols, dtype={"BATHRM": "int8", "ROOMS": "int8", "BEDRM": "int8"})
     df.columns= df.columns.str.lower()
     return df
 

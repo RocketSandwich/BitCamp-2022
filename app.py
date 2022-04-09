@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 
 st.title("Real Estate Price Prediction based on selection")
-df = pd.read_csv('DC_propertyOpenData.csv',encoding='latin-1')
+df = pd.read_csv('DC_propertyOpenData.csv',encoding='latin-1', low_memory = False)
 df.columns= df.columns.str.lower()
 test = df.astype(str)
 # st.dataframe(test)

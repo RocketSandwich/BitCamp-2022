@@ -3,6 +3,7 @@ body {
     padding: 15px;
     font-size: 16px;
     line-height: 1.5;
+    background-image: url('background.jpeg');
     background-position: center center;
     background-size: cover; /* or background-size: contain */
 
@@ -19,22 +20,18 @@ body {
     display: none;
 }
 
-h1 {
-    margin: 0px;
-    font-size: 25px;
-    font-family: 'Poppins', sans-serif;
-    color: #3f3f3f;
-}
 h4{
     margin: 0px;
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
-    color: #5b5b5a ;
+    font-size: bold;
+    color: white ;
 }
 div{
     display: block;
     font-family: 'Poppins', sans-serif;
-    color: black;
+    color: white;
+    
 }
 img {
   width: 300px;
@@ -42,7 +39,7 @@ img {
   object-fit: contain;
 }
 .tab button {
-  color: #2588cf;
+  color: white;
   font-style: bold;
   font-size: 25px;
   font-family: 'Roboto', sans-serif;

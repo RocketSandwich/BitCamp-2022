@@ -40,12 +40,14 @@ numOfBedrooms = st.slider("How many bedrooms?", minBed, maxBed)
 numOfBathrooms = st.slider("How many bathrooms?", minBath, maxBath)
 numOfKitchen = st.slider("How many kitchens?", minKit, maxKit)
 AC = st.checkbox("Have AC?")
-condition = st.multiselect('How would you like the condition of the house to be?',('Very Good','Good', 'Average'))
+condition = st.selectbox('How would you like the condition of the house to be?',('Very Good','Good', 'Average'))
 
 selection_date = {
     'bathrm': [numOfBathrooms],
     'rooms': [numOfRooms],
     'bedrm': [numOfBedrooms],
     'kitchens': [numOfKitchen],
+    'ac': [AC],
+    'cndtn': [condition],
 
 }

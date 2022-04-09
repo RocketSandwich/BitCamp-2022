@@ -31,8 +31,8 @@ EYB=1963.649229092338, STORIES=2.079705255815569, QUALIFIED=0.48203750293090664,
 
 
 @st.cache(persist=True)
-def read_csv_and_lowerCase_columnNames(df):
-    df = pd.read_csv('DC_propertyOpenData.csv',encoding='latin-1', low_memory = False)
+def read_csv_and_lowerCase_columnNames(req_cols = ["BATHRM", "ROOMS", "BEDRM", "KITCHENS", "AC", "CNDTN"]):
+    df = pd.read_csv('DC_propertyOpenData.csv', encoding='latin-1', usecols=req_cols, low_memory=False)
     df.columns= df.columns.str.lower()
     return df
 
@@ -42,14 +42,15 @@ st.write("Your preference")
 numOfRooms = st.sidebar.slider("How many rooms?", 0, 48)
 numOfBedrooms = st.sidebar.slider("How many bedrooms?", 0, 24)
 numOfBathrooms = st.sidebar.slider("How many bathrooms?", 0, 14)
-numOfKitchen = st.sidebar.slider("How many kitchens?", 0, 14)
+numOfKitchens = st.sidebar.slider("How many kitchens?", 0, 14)
 AC = st.sidebar.checkbox("Have AC?")
 condition = st.sidebar.selectbox('How would you like the condition of the house to be?',('Very Good','Good', 'Average'))
 priceLabel = st.text("")
 calculatePriceBtn = st.button("Calculate Price :D")
-calcPrice(BEDRM=numOfBedrooms, ROOMS=numOfRooms, BATHRM=numOfBathrooms, KITCHENS=numOfKitchen, AC=AC, CNDTN=CONDITDic[condition])
+calcPrice(BEDRM=numOfBedrooms, ROOMS=numOfRooms, BATHRM=numOfBathrooms, KITCHENS=numOfKitchens, AC=AC, CNDTN=CONDITDic[condition])
 
-df1 = df.loc[(df['BATHRM'] == bathrm) & (df['ROOMS'] == rm)& (df['BEDRM']==bedrm)& (df['KITCHENS']==ktch)& (df['AC']==AC)& (df['CNDTN']==condition)]
+df = read_csv_and_lowerCase_columnNames()
+df1 = df.loc[(df['bathrm']==numOfBathrooms) & (df['rooms']==numOfRooms) & (df['bedrm']==numOfBedrooms) & (df['kitchens']==numOfKitchens) & (df['ac']==AC)& (df['cndtn']==condition)]
 if df1.empty:
     st.write("We're sorry, we don't have any houses like your preferences")
 else:

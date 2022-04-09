@@ -7,6 +7,7 @@ from PIL import Image
 import torch
 from PricePredictorModel import PricePredictor
 import matplotlib.pyplot as plt
+from time import sleep
 
 model = PricePredictor()
 model.load_state_dict(torch.load("PricePredictor.mdl")["model_state_dict"])
@@ -50,33 +51,37 @@ EYB=1963.649229092338, STORIES=2.079705255815569, QUALIFIED=0.48203750293090664,
     xData = torch.tensor(xData).float()
     price = model(xData.view(-1, 29))
     price = int(price.item()*100000)
-    return price
+    st.header(f'Price: ${price}')
+
 
 
 @st.cache(persist=True)
-def read_csv_and_lowerCase_columnNames(df):
-    df = pd.read_csv('DC_propertyOpenData.csv',encoding='latin-1', low_memory = False)
+def read_csv_and_lowerCase_columnNames(req_cols = ["BATHRM", "ROOMS", "BEDRM", "KITCHENS", "AC", "CNDTN"]):
+    df = pd.read_csv('DC_propertyOpenData.csv', encoding='latin-1', usecols=req_cols, low_memory=False)
     df.columns= df.columns.str.lower()
     return df
 
-st.title("Real Estate Price Prediction based on selection")
+st.title("Real Estate Price Prediction Based on Selection")
 #selection box
-st.write("Your preference")
-numOfRooms = st.sidebar.slider("How many rooms?", 1, 25)
-numOfBedrooms = st.sidebar.slider("How many bedrooms?", 1, 15)
-numOfBathrooms = st.sidebar.slider("How many bathrooms?", 1, 10)
-numOfKitchen = st.sidebar.slider("How many kitchens?", 1, 10)
-squareFootage = st.sidebar.slider("How many square feet?", 250, 3000)
-AC = st.sidebar.checkbox("Have AC?")
+st.write('Check out the collapsible options on the left side!')
+numOfRooms = st.sidebar.slider("How many rooms?", 1, 25, value=6)
+numOfBedrooms = st.sidebar.slider("How many bedrooms?", 1, 15, value=3)
+numOfBathrooms = st.sidebar.slider("How many bathrooms?", 1, 10, value=2)
+numOfKitchens = st.sidebar.slider("How many kitchens?", 1, 10, value=1)
+squareFootage = st.sidebar.slider("How many square feet?", 250, 3500, value=2645)
+AC = st.sidebar.checkbox("Have AC?", value=True)
 condition = st.sidebar.selectbox('How would you like the condition of the house to be?',('Very Good','Good', 'Average'))
 priceLabel = st.subheader("The estimated price of a house similar to this one is...")
-t = st.empty()
-if st.button("Calculate Price :D"):
-    t.markdown("$" + str(calcPrice(BEDRM=numOfBedrooms, ROOMS=numOfRooms, BATHRM=numOfBathrooms, KITCHENS=numOfKitchen, AC=AC, CNDTN=CONDITDic[condition], SQUARE=squareFootage)))
+if st.button('Calculate the Price'): 
+    with st.spinner('Calculating price...'):
+        sleep(3)
+        calcPrice(BEDRM=numOfBedrooms, ROOMS=numOfRooms, BATHRM=numOfBathrooms, KITCHENS=numOfKitchens, AC=AC, CNDTN=CONDITDic[condition], SQUARE=squareFootage)
+        st.balloons();
+        st.success('Done!')
 
-
-df1 = df.loc[(df['BATHRM'] == bathrm) & (df['ROOMS'] == rm)& (df['BEDRM']==bedrm)& (df['KITCHENS']==ktch)& (df['AC']==AC)& (df['CNDTN']==condition)]
-if df1.empty:
-    st.write("We're sorry, we don't have any houses like your preferences")
-else:
-  st.dataframe(df1)
+df = read_csv_and_lowerCase_columnNames()
+df1 = df.loc[(df['bathrm']==numOfBathrooms) & (df['rooms']==numOfRooms) & (df['bedrm']==numOfBedrooms) & (df['kitchens']==numOfKitchens) & (df['ac']==AC)& (df['cndtn']==condition)]
+#if df1.empty:
+#    st.write("We're sorry, we don't have any houses like your preferences")
+#else:
+#  st.dataframe(df1)

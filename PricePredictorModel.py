@@ -17,21 +17,15 @@ class PricePredictor(nn.Module):
     def __init__(self):
         super(PricePredictor, self).__init__()
         self.linear_relu_stack = nn.Sequential(
-            nn.Linear(6, 320),
+            nn.Linear(29, 418),
             nn.ReLU(),
-            nn.Linear(320, 384),
+            nn.Linear(418, 380),
             nn.ReLU(),
-            nn.Linear(384, 352),
+            nn.Linear(380, 380),
             nn.ReLU(),
-            nn.Linear(352, 448),
+            nn.Linear(380, 20),
             nn.ReLU(),
-            nn.Linear(448, 160),
-            nn.ReLU(),
-            nn.Linear(160, 160),
-            nn.ReLU(),
-            nn.Linear(160, 32),
-            nn.ReLU(),
-            nn.Linear(32, 1),
+            nn.Linear(20, 1),
         )
 
     def forward(self, input):

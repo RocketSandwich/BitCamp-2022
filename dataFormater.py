@@ -162,9 +162,9 @@ filtered_entries = (np.abs(zscore(df)) < 8).all(axis=1)
 df = df[filtered_entries]
 
 
-tempDrop = ['GBA', 'HF_BATHRM', 'NUM_UNITS', 'AYB', 'YR_RMDL', 'EYB', 'LIVING_GBA', 'STORIES', 'SALE_NUM', 'HEAT', 'QUALIFIED', 'STRUCT', 'GRADE', 'EXTWALL', 'ROOF', 'INTWALL', 'USECODE', 'LANDAREA', 'LATITUDE', 'LONGITUDE', 'SQUARE', 'QUADRANT', 'WARD']
+'''tempDrop = ['AYB', 'YR_RMDL', 'EYB', 'LIVING_GBA', 'STORIES', 'SALE_NUM', 'QUALIFIED', 'STRUCT', 'GRADE', 'USECODE', 'WARD']
 for c in tempDrop:
-    df.drop(c, axis = 1, inplace = True)
+    df.drop(c, axis = 1, inplace = True)'''
 
 for c in df:
     plt.ylim(0, 1e7)
@@ -177,9 +177,9 @@ for c in df:
 yDf = df["PRICE"]
 df.drop("PRICE", axis = 1, inplace = True)
 
-print(len(df))
+print(len(df.columns))
 for col in df:
-    print(f"{col}={df[col].mean()}", end=" ")
+    print(f"{col}={df[col].mean()}", end=", ")
 
 yData = yDf.to_numpy(dtype=float)
 xData = df.to_numpy(dtype=float)

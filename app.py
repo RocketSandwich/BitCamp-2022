@@ -8,6 +8,8 @@ import torch
 from PricePredictorModel import PricePredictor
 import matplotlib.pyplot as plt
 from time import sleep
+from decimal import Decimal
+
 
 model = PricePredictor()
 model.load_state_dict(torch.load("PricePredictor.mdl")["model_state_dict"])
@@ -69,6 +71,7 @@ numOfBedrooms = st.sidebar.slider("How many bedrooms?", 1, 15, value=3)
 numOfBathrooms = st.sidebar.slider("How many bathrooms?", 1, 10, value=2)
 numOfKitchens = st.sidebar.slider("How many kitchens?", 1, 10, value=1)
 squareFootage = st.sidebar.slider("How many square feet?", 250, 3500, value=2645)
+
 AC = st.sidebar.checkbox("Have AC?", value=True)
 condition = st.sidebar.selectbox('How would you like the condition of the house to be?',('Very Good','Good', 'Average'))
 priceLabel = st.subheader("The estimated price of a house similar to this one is...")
@@ -85,3 +88,7 @@ df1 = df.loc[(df['bathrm']==numOfBathrooms) & (df['rooms']==numOfRooms) & (df['b
 #    st.write("We're sorry, we don't have any houses like your preferences")
 #else:
 #  st.dataframe(df1)
+DF2 = read_csv_and_lowerCase_columnNames(req_cols = ["LATITUDE", "LONGITUDE"])
+#DF2 = DF2.apply(lambda x: x.apply(Decimal))
+DF2 = pd.DataFrame(np.array(zip(list(DF2["latitude"]), list(DF2['longitude']))), columns=['lat', 'lon'])
+st.map(DF2)
